@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard - Attendance.com</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script src="https://accounts.google.com/gsi/client"></script>
+</head>
+<body>
+  <header class="dashboard-header">
+    <nav>
+      <div class="logo">
+        <h1>Attendance.com</h1>
+      </div>
+      <ul class="nav-links">
+        <li><a href="dashboard.html" class="active">Dashboard</a></li>
+        <li><a href="attendance.html">Attendance Records</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><a href="#" id="logout-btn" class="logout-btn">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="dashboard-main">
+    <aside class="dashboard-sidebar">
+      <div class="teacher-profile">
+        <div class="profile-image">
+          <img src="/placeholder.svg?height=80&width=80" alt="Teacher profile">
+        </div>
+        <h3 id="teacher-name">Teacher Name</h3>
+        <p id="teacher-email">teacher@example.com</p>
+      </div>
+      <ul class="sidebar-menu">
+        <li class="active"><a href="dashboard.html">Generate QR Code</a></li>
+        <li><a href="attendance.html">View Attendance</a></li>
+        <li><a href="classes.html">Manage Classes</a></li>
+        <li><a href="students.html">Student List</a></li>
+        <li><a href="reports.html">Reports</a></li>
+        <li><a href="settings.html">Settings</a></li>
+      </ul>
+    </aside>
+
+    <section class="dashboard-content">
+      <div class="page-header">
+        <h2>Generate Attendance QR Code</h2>
+        <p>Create a unique QR code for your lecture session</p>
+      </div>
+
+      <div class="qr-generator">
+        <div class="form-card">
+          <form id="qr-form">
+            <div class="form-group">
+              <label for="class-select">Select Class</label>
+              <select id="class-select" required>
+                <option value="">-- Select a class --</option>
+                <option value="cs101">CS 101 - Intro to Programming</option>
+                <option value="cs201">CS 201 - Data Structures</option>
+                <option value="math101">MATH 101 - Calculus I</option>
+                <option value="eng101">ENG 101 - English Composition</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="lecture-title">Lecture Title</label>
+              <input type="text" id="lecture-title" placeholder="e.g. Introduction to Arrays" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="expiry-time">QR Code Expiry (minutes)</label>
+                <input type="number" id="expiry-time" min="5" max="180" value="60" required>
+              </div>
+              <div class="form-group">
+                <label for="spreadsheet-id">Google Sheet ID</label>
+                <input type="text" id="spreadsheet-id" placeholder="Paste your Google Sheet ID">
+              </div>
+            </div>
+            <button type="submit" class="btn primary-btn">Generate QR Code</button>
+          </form>
+        </div>
+
+        <div class="qr-display">
+          <div class="qr-container">
+            <div id="qrcode"></div>
+            <p id="qr-expiry">QR code will expire in <span id="expiry-countdown">60:00</span></p>
+          </div>
+          <div class="qr-actions">
+            <button id="download-qr" class="btn secondary-btn" disabled>Download QR Code</button>
+            <button id="print-qr" class="btn secondary-btn" disabled>Print QR Code</button>
+            <button id="new-qr" class="btn outline-btn" disabled>Generate New Code</button>
+          </div>
+          <div class="google-auth-container">
+            <p>Connect to Google Sheets to sync attendance data:</p>
+            <div id="google-auth-button"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="attendance-live">
+        <h3>Live Attendance</h3>
+        <p>Students who have scanned the QR code will appear here in real-time</p>
+        <div class="attendance-stats">
+          <div class="stat-card">
+            <h4>Total Students</h4>
+            <p id="total-students">0</p>
+          </div>
+          <div class="stat-card">
+            <h4>Present</h4>
+            <p id="present-students">0</p>
+          </div>
+          <div class="stat-card">
+            <h4>Absent</h4>
+            <p id="absent-students">0</p>
+          </div>
+          <div class="stat-card">
+            <h4>Attendance Rate</h4>
+            <p id="attendance-rate">0%</p>
+          </div>
+        </div>
+        <div class="attendance-table-container">
+          <table class="attendance-table">
+            <thead>
+              <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="attendance-list">
+              <!-- Attendance records will be populated here -->
+              <tr class="empty-state">
+                <td colspan="4">No attendance records yet</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-bottom">
+      <p>&copy; 2025 EduTrack. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
+

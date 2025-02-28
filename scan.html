@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scan Attendance QR - Attendance.com</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <h1>Attendance Tracking</h1>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="login.html" class="login-btn">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="scan-container">
+      <div class="scan-card">
+        <h2>Scan Attendance QR Code</h2>
+        
+        <div class="student-info-form" id="student-info-form">
+          <p>Please enter your details before scanning:</p>
+          <form id="student-form">
+            <div class="form-group">
+              <label for="student-id">Student ID</label>
+              <input type="text" id="student-id" name="student-id" required>
+            </div>
+            <div class="form-group">
+              <label for="student-name">Full Name</label>
+              <input type="text" id="student-name" name="student-name" required>
+            </div>
+            <div class="form-group">
+              <label for="student-email">Email</label>
+              <input type="email" id="student-email" name="student-email" required>
+            </div>
+            <button type="submit" class="btn primary-btn">Continue to Scan</button>
+          </form>
+        </div>
+
+        <div class="scanner-container" id="scanner-container" style="display: none;">
+          <p>Position the QR code within the scanner area</p>
+          <div class="scanner-view">
+            <video id="scanner-preview"></video>
+            <div class="scanner-overlay">
+              <div class="scanner-frame"></div>
+            </div>
+          </div>
+          <div class="scanner-controls">
+            <button id="switch-camera" class="btn outline-btn">Switch Camera</button>
+            <button id="cancel-scan" class="btn secondary-btn">Cancel</button>
+          </div>
+        </div>
+
+        <div class="scan-result" id="scan-result" style="display: none;">
+          <div class="success-icon">✓</div>
+          <h3>Attendance Recorded!</h3>
+          <div class="result-details">
+            <p><strong>Student:</strong> <span id="result-name"></span></p>
+            <p><strong>Class:</strong> <span id="result-class"></span></p>
+            <p><strong>Date & Time:</strong> <span id="result-time"></span></p>
+          </div>
+          <button id="scan-another" class="btn primary-btn">Scan Another Code</button>
+        </div>
+
+        <div class="scan-error" id="scan-error" style="display: none;">
+          <div class="error-icon">✗</div>
+          <h3>Error Scanning Code</h3>
+          <p id="error-message">Invalid or expired QR code.</p>
+          <button id="try-again" class="btn primary-btn">Try Again</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h2>EduTrack</h2>
+        <p>Simplifying attendance tracking for educators</p>
+      </div>
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h3>Contact Us</h3>
+        <p>Email: support@edutrack.com</p>
+        <p>Phone: (123) 456-7890</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 EduTrack. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <script src="scan.js"></script>
+</body>
+</html>
+
