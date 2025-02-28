@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Attendance System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>QR Attendance System</h1>
+      <nav>
+        <button id="instructor-btn" class="active">Instructor</button>
+        <button id="student-btn">Student</button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Instructor Panel -->
+      <section id="instructor-panel" class="panel active">
+        <h2>Generate Lecture QR Code</h2>
+        <div class="form-group">
+          <label for="course-name">Course Name:</label>
+          <input type="text" id="course-name" placeholder="e.g., Computer Science 101">
+        </div>
+        <div class="form-group">
+          <label for="lecture-id">Lecture ID:</label>
+          <input type="text" id="lecture-id" placeholder="e.g., CS101-L05">
+        </div>
+        <div class="form-group">
+          <label for="lecture-date">Date:</label>
+          <input type="date" id="lecture-date">
+        </div>
+        <div class="form-group">
+          <label for="expiry-time">QR Code Expiry (minutes):</label>
+          <input type="number" id="expiry-time" value="15" min="1" max="120">
+        </div>
+        <button id="generate-qr" class="primary-btn">Generate QR Code</button>
+        
+        <div id="qr-result" class="hidden">
+          <h3>Lecture QR Code</h3>
+          <div id="qrcode"></div>
+          <p id="qr-expiry"></p>
+          <button id="download-qr" class="secondary-btn">Download QR Code</button>
+          <button id="view-attendance" class="secondary-btn">View Attendance</button>
+        </div>
+
+        <div id="attendance-data" class="hidden">
+          <h3>Attendance Data</h3>
+          <table id="attendance-table">
+            <thead>
+              <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody id="attendance-list">
+              <!-- Attendance data will be inserted here -->
+            </tbody>
+          </table>
+          <button id="export-csv" class="secondary-btn">Export to CSV</button>
+          <button id="back-to-qr" class="secondary-btn">Back to QR Code</button>
+        </div>
+      </section>
+
+      <!-- Student Panel -->
+      <section id="student-panel" class="panel">
+        <h2>Mark Your Attendance</h2>
+        <div class="form-group">
+          <label for="student-id">Student ID:</label>
+          <input type="text" id="student-id" placeholder="Enter your student ID">
+        </div>
+        <div class="form-group">
+          <label for="student-name">Full Name:</label>
+          <input type="text" id="student-name" placeholder="Enter your full name">
+        </div>
+        
+        <div class="scanner-container">
+          <h3>Scan QR Code</h3>
+          <div id="scanner-placeholder">
+            <button id="start-scanner" class="primary-btn">Start Scanner</button>
+          </div>
+          <div id="scanner" class="hidden"></div>
+        </div>
+        
+        <div id="attendance-status" class="hidden">
+          <div id="status-message"></div>
+        </div>
+      </section>
+    </main>
+
+    <div id="google-auth-container" class="hidden">
+      <div class="auth-content">
+        <h2>Google Sheets Authorization</h2>
+        <p>To save attendance data, please authorize access to Google Sheets.</p>
+        <button id="authorize-button" class="primary-btn">Authorize</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode.js@1.0.0/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script src="https://accounts.google.com/gsi/client"></script>
+  <script src="app.js"></script>
+</body>
+</html>
